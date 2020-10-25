@@ -1,0 +1,76 @@
+#!/usr/bin/env php
+<?php
+chdir(__DIR__);
+
+$envConfig = require_once __DIR__ . '/.env.php';
+
+if (!isset($envConfig["env"])) {
+    throw new Exception('Env config is required example: {"env":"you_environment"}');
+}
+
+define('ENV', $envConfig['env']);
+define('EOL', PHP_EOL);
+define('DS', DIRECTORY_SEPARATOR);
+
+require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/config-' . ENV . '.php';
+require_once __DIR__ . '/src/DbPdoMySql.php';
+require_once __DIR__ . '/src/SqlProcessor.php';
+
+function getParamValue($arguments, $p)
+{
+    foreach ($arguments as $key => $value) {
+        if ($value === "-" . $p) {
+            $nextKey = $key + 1;
+            return isset($arguments[$nextKey]) ? $arguments[$nextKey] : true;
+        }
+    }
+    return false;
+}
+
+echo EOL . " SQL Processor v2.0 - by Edily Cesar Medule (edilycesar@gmail.com)" . EOL . EOL;
+
+$sqlProcessor = new SqlProcessor($configs);
+
+if ($value = getParamValue($argv, "n")) {
+    echo "New: " . EOL;
+    $sqlProcessor->newQuery();
+}
+
+if ($author = getParamValue($argv, "a")) {
+    $sqlProcessor->setAuthor($author);
+}
+
+if ($description = getParamValue($argv, "d")) {
+    $sqlProcessor->setDescription($description);
+}
+
+if ($value = getParamValue($argv, "r")) {
+    $sqlProcessor->run();
+}
+
+if ($value = getParamValue($argv, "c")) {
+    $sqlProcessor->validateAllLogTables();
+}
+
+if ($value = getParamValue($argv, "k")) {
+    $sqlProcessor->reset();
+}
+
+if (1 === (int) $argc || $value = getParamValue($argv, "h")) {
+
+    echo "-n      Create file for new query" . EOL;
+    echo "-a      Define the query author" . EOL;
+    echo "-d      Define a query description" . EOL;
+    echo "-r      Run the queries" . EOL;
+    echo "-c      Validate runs on all databases" . EOL;
+    echo "-h      Help" . EOL;
+    echo "-m      Manual / Documentation (Future)" . EOL;
+    echo "-k      Clear all, database control table and directory contents" . EOL;
+    echo EOL . EOL;
+    echo "Example:" . EOL;
+    echo "  ./cesar-migrator -a Cesar -d Query marotinha -r" . EOL;
+}
+
+echo EOL;
+
