@@ -2,7 +2,7 @@
     "name": "cesar/cesar-migrator",
     "description": "Execute queries at the same time in various environments and databases",
     "type": "project",
-    "license": "GNU General Public License v3.0",
+    "license": "AGPL-3.0-or-later",
     "authors": [
         {
             "name": "Cesar",
