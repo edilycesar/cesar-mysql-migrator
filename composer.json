@@ -1,6 +1,6 @@
 {
     "name": "cesar/cesar-mysql-migrator",
-    "description": "Execute queries at the same time in various environments and databases",
+    "description": "Execute MySQL queries at the same time in various environments and databases",
     "type": "project",
     "license": "AGPL-3.0-or-later",
     "authors": [
