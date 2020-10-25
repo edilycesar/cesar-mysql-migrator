@@ -1,0 +1,13 @@
+{
+    "name": "cesar/cesar-migrator",
+    "description": "Execute queries at the same time in various environments and databases",
+    "type": "project",
+    "license": "GNU General Public License v3.0",
+    "authors": [
+        {
+            "name": "Cesar",
+            "email": "edilycesar@gmail.com"
+        }
+    ],
+    "require": {}
+}
