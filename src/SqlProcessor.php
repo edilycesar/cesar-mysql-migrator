@@ -184,7 +184,7 @@ class SqlProcessor
 
     public function validateAllLogTables()
     {
-        echo EOL . " VALIDANDO BANCOS " . EOL;
+        echo EOL . " VALIDATING DATABASES " . EOL;
 
         foreach ($this->configs as $this->currentConfig) {
             foreach ($this->currentConfig['databases'] as $this->currentDatabase) {
