@@ -4,7 +4,7 @@ define('VERSION', "3.0");
 define('EOL', PHP_EOL);
 define('DS', DIRECTORY_SEPARATOR);
 
-function getParamValue($arguments, $p)
+function getParamValue($arguments, $p, $require = false)
 {
     foreach ($arguments as $key => $value) {
         if ($value === "-" . $p) {
@@ -12,31 +12,39 @@ function getParamValue($arguments, $p)
             return isset($arguments[$nextKey]) ? $arguments[$nextKey] : true;
         }
     }
+
+    if ($require === true) {
+        throw new Exception("Config file required, see -f param");
+    }
+
     return false;
 }
 
 function requireConfigs($arguments)
 {
-    $configFileParam = getParamValue($arguments, "f");
-    $configFile = realpath($configFileParam);
+    $configFileParam = getParamValue($arguments, "f", true);
+    $configFile = realpath(getcwd() . DS . $configFileParam);
+
     echo " Config file: " . $configFile . EOL;
+
     if (!file_exists($configFile)) {
         throw new Exception("Config file not found: " . $configFile);
     }
+
     return require_once $configFile;
 }
 
 echo EOL . " SQL Processor v" . VERSION . " - by Edily Cesar Medule (edilycesar@gmail.com)" . EOL . EOL;
 
+//echo __DIR__ . EOL;
+//echo __FILE__ . EOL;
+//echo getcwd() . EOL;
+
 $configs = requireConfigs($argv);
 
+//die(json_encode($configs));
+
 chdir(__DIR__);
-
-$envConfig = require_once __DIR__ . "/.env.php";
-
-if (!isset($envConfig["env"])) {
-    throw new Exception('Env config is required example: {"env":"you_environment"}');
-}
 
 require_once __DIR__ . '/config.php';
 //require_once __DIR__ . '/config-' . ENV . '.php';
