@@ -14,7 +14,7 @@ function getParamValue($arguments, $p, $require = false)
     }
 
     if ($require === true) {
-        throw new Exception("Config file required, see -f param");
+        throw new Exception("Config file required, see -{$p} param");
     }
 
     return false;
