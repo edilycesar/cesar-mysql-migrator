@@ -61,9 +61,71 @@ queue/executed
 /home/cesar/myproject-cesar-migrator-config/queue
 
 /home/cesar/myproject-cesar-migrator-config/queue/executed
-
+```
 ##### Create example
-
 ```
 mkdir -p /home/cesar/myproject-cesar-migrator-config/queue/executed
+
+```
+
+### Update
+
+```
+cesar@t-rex:~$cd /opt/cesar_migrator
+cesar@t-rex:/opt/cesar_migrator$ composer update
+Loading composer repositories with package information
+Updating dependencies (including require-dev)
+Nothing to install or update
+Generating autoload files
+
+```
+
+#### Command
+
+##### Help param -h
+
+```
+cesar@t-rex:~$ ./cesar-migrator -h
+
+ SQL Processor v3.0 - by Edily Cesar Medule (edilycesar@gmail.com)
+
+-n Create file for new query
+ - a Define the query author
+ - d Define a query description
+ - r Run the queries
+ - f Config file
+ - c Validate runs on all databases
+ - h Help
+ - m Manual / Documentation (Future)
+ - k Clear all, database control table and directory contents
+
+Example:
+ ./cesar-migrator -a Cesar -d Query marotinha -r
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ```

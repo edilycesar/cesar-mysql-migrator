@@ -1,6 +1,6 @@
 #!/usr/bin/env php
 <?php
-define('VERSION', "3.0");
+define('VERSION', "3.0.1");
 define('EOL', PHP_EOL);
 define('DS', DIRECTORY_SEPARATOR);
 
