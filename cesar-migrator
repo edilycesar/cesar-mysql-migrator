@@ -36,46 +36,44 @@ function requireConfigs($arguments)
 
 echo EOL . " SQL Processor v" . VERSION . " - by Edily Cesar Medule (edilycesar@gmail.com)" . EOL . EOL;
 
-//echo __DIR__ . EOL;
-//echo __FILE__ . EOL;
-//echo getcwd() . EOL;
+$isHelp = (bool) getParamValue($argv, "h");
 
-$configs = requireConfigs($argv);
+if (!$isHelp) {
+    $configs = requireConfigs($argv);
 
-//die(json_encode($configs));
+    chdir(__DIR__);
 
-chdir(__DIR__);
-
-require_once __DIR__ . '/config.php';
+    require_once __DIR__ . '/config.php';
 //require_once __DIR__ . '/config-' . ENV . '.php';
-require_once __DIR__ . '/src/DbPdoMySql.php';
-require_once __DIR__ . '/src/SqlProcessor.php';
+    require_once __DIR__ . '/src/DbPdoMySql.php';
+    require_once __DIR__ . '/src/SqlProcessor.php';
 
-$sqlProcessor = new SqlProcessor($configs);
+    $sqlProcessor = new SqlProcessor($configs);
 
-if ($value = getParamValue($argv, "n")) {
-    echo "New: " . EOL;
-    $sqlProcessor->newQuery();
-}
+    if ($value = getParamValue($argv, "n")) {
+        echo "New: " . EOL;
+        $sqlProcessor->newQuery();
+    }
 
-if ($author = getParamValue($argv, "a")) {
-    $sqlProcessor->setAuthor($author);
-}
+    if ($author = getParamValue($argv, "a")) {
+        $sqlProcessor->setAuthor($author);
+    }
 
-if ($description = getParamValue($argv, "d")) {
-    $sqlProcessor->setDescription($description);
-}
+    if ($description = getParamValue($argv, "d")) {
+        $sqlProcessor->setDescription($description);
+    }
 
-if ($value = getParamValue($argv, "r")) {
-    $sqlProcessor->run();
-}
+    if ($value = getParamValue($argv, "r")) {
+        $sqlProcessor->run();
+    }
 
-if ($value = getParamValue($argv, "c")) {
-    $sqlProcessor->validateAllLogTables();
-}
+    if ($value = getParamValue($argv, "c")) {
+        $sqlProcessor->validateAllLogTables();
+    }
 
-if ($value = getParamValue($argv, "k")) {
-    $sqlProcessor->reset();
+    if ($value = getParamValue($argv, "k")) {
+        $sqlProcessor->reset();
+    }
 }
 
 if (1 === (int) $argc || $value = getParamValue($argv, "h")) {

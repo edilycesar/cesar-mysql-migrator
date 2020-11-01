@@ -50,7 +50,6 @@
 
  */
 
-
 return [
     [
         "databases" => [
@@ -63,8 +62,8 @@ return [
                 "password" => ""
             ]
         ],
-        "mainfolder" => "", // Pool of queries
-        "mainfile" => "", // Constant queries
-        "queuefoldername" => "" // Queries of environment
+        "mainfolder" => "", // Pool of queries, in here are inserted new query files
+        "mainfile" => "", // Constant queries, this query is executed every time
+        "queuefoldername" => "" // Queries of environment, directory used by Cesar migrator, do not require user interaction.
     ]
 ];
