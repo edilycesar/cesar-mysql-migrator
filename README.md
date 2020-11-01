@@ -1,4 +1,4 @@
-# Cesar migrator SQL processor
+# Cesar migrator SQL processor v 3.0.1 - build 100
 
 ## Installing
 
@@ -17,7 +17,7 @@ You can get Cesar Migrator in here [Packagist](https://packagist.org/packages/ce
 ```
 sudo rm -rf ~/cesar_migrator_tmp
 sudo rm -rf /opt/cesar_migrator
-sudo rm -rf /usr/bin/cesar-migrator 
+sudo rm -rf /usr/bin/cesar-migrator
 
 mkdir ~/cesar_migrator_tmp
 composer create-project cesar/cesar-migrator ~/cesar_migrator_tmp -s dev
@@ -46,7 +46,7 @@ return [
         ],
         "mainfolder" => "", // Pool of queries, in here are inserted new query files
         "mainfile" => "", // Constant queries, this query is executed every time
-        "queuefoldername" => "" // Queries of environment, directory used by Cesar migrator, do not require user interaction. 
+        "queuefoldername" => "" // Queries of environment, directory used by Cesar migrator, do not require user interaction.
     ]
 ];
 
