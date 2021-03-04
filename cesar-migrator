@@ -78,15 +78,15 @@ if (!$isHelp) {
 
 if (1 === (int) $argc || $value = getParamValue($argv, "h")) {
 
-    echo "-n Create file for new query" . EOL;
-    echo " - a Define the query author" . EOL;
-    echo " - d Define a query description" . EOL;
-    echo " - r Run the queries" . EOL;
-    echo " - f Config file" . EOL;
-    echo " - c Validate runs on all databases" . EOL;
-    echo " - h Help" . EOL;
-    echo " - m Manual / Documentation (Future)" . EOL;
-    echo " - k Clear all, database control table and directory contents" . EOL;
+    echo " -n Create file for new query" . EOL;
+    echo " -a Define the query author" . EOL;
+    echo " -d Define a query description" . EOL;
+    echo " -r Run the queries" . EOL;
+    echo " -f Config file" . EOL;
+    echo " -c Validate runs on all databases" . EOL;
+    echo " -h Help" . EOL;
+    echo " -m Manual / Documentation (Future)" . EOL;
+    echo " -k Clear all, database control table and directory contents" . EOL;
     echo EOL . EOL;
     echo "Example:" . EOL;
     echo " ./cesar-migrator -a Cesar -d Query marotinha -r" . EOL;

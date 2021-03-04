@@ -213,7 +213,7 @@ class SqlProcessor
 
             $pRow = $rows[$pKey];
 
-            $statusOk = ($pRow["sql_previous_date"] === $row["sql_date"]);
+            $statusOk = (isset($pRow["sql_previous_date"]) && $pRow["sql_previous_date"] === $row["sql_date"]);
             $statusTx = $statusOk ? "OK" : "ERRO";
 
             if ($statusOk === false) {
