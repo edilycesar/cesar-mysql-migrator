@@ -1,5 +1,7 @@
 <?php
 
+define("DS", DIRECTORY_SEPARATOR);
+
 /**
  * Description of Query
  *
@@ -8,7 +10,7 @@
 class SqlProcessor
 {
 
-    const BASE_DIR = __DIR__ . "/../../";
+    const BASE_DIR = __DIR__ . DS . ".." . DS . ".." . DS;
     const MERGED_QUEUE_EXECUTED_FILENAME = "merged.sql";
 
     private $configs = [];
@@ -70,8 +72,8 @@ class SqlProcessor
         foreach ($this->configs as $this->currentConfig) {
 
             $originDir = $this->getMainFolderFromCurrentConfig();
-            $destinationDir = realpath($this->currentConfig['queuefoldername'] . "/queue");
-            $destinationExecutedDir = realpath($this->currentConfig['queuefoldername'] . "/queue/executed");
+            $destinationDir = realpath($this->currentConfig['queuefoldername'] . DS . "queue");
+            $destinationExecutedDir = realpath($this->currentConfig['queuefoldername'] . DS . "queue" . DS . "executed");
 
             foreach (scandir($originDir) as $file) {
 
@@ -79,9 +81,9 @@ class SqlProcessor
                     continue;
                 }
 
-                $ofilename = $originDir . DIRECTORY_SEPARATOR . $file;
-                $dfilename = $destinationDir . DIRECTORY_SEPARATOR . $file;
-                $dfilenameExecuted = $destinationExecutedDir . DIRECTORY_SEPARATOR . $file;
+                $ofilename = $originDir . DS . $file;
+                $dfilename = $destinationDir . DS . $file;
+                $dfilenameExecuted = $destinationExecutedDir . DS . $file;
 
                 if (file_exists($dfilename) === true) {
                     //echo "ARQUIVO EXISTE NO DESTINO: " . $dfilename;
@@ -106,10 +108,8 @@ class SqlProcessor
         $this->currentDatabases = $this->currentConfig['databases'];
         $this->currentQueueFolderName = $this->currentConfig['queuefoldername'];
         $this->currentMainFile = $this->currentConfig['mainfile'];
-        //$this->currentQueueFolder = self::BASE_DIR . DIRECTORY_SEPARATOR . $this->currentQueueFolderName . "/queue/";
-        $this->currentQueueFolder = $this->currentQueueFolderName . "/queue/";
-        //$this->currentQueueExecutedFolder = self::BASE_DIR . DIRECTORY_SEPARATOR . $this->currentQueueFolderName . "/queue/executed/";
-        $this->currentQueueExecutedFolder = $this->currentQueueFolderName . "/queue/executed/";
+        $this->currentQueueFolder = $this->currentQueueFolderName . DS . "queue" . DS;
+        $this->currentQueueExecutedFolder = $this->currentQueueFolderName . DS . "queue" . DS . "executed" . DS;
 
         $this->createInfoTablesIfNotExists();
 
@@ -142,7 +142,7 @@ class SqlProcessor
             throw new Exception("Arquivo não encontrado");
         }
 
-//echo $this->currentPartFile . PHP_EOL;
+        //echo $this->currentPartFile . PHP_EOL;
         $this->currentQuery = file_get_contents($this->currentPartFile);
         $this->runQueryByDatabase();
         $this->moveFileToExecutedFolder();
@@ -407,12 +407,12 @@ class SqlProcessor
             $this->currentDatabases = $this->currentConfig['databases'];
 
             $originDir = $this->getMainFolderFromCurrentConfig();
-            $destinationDir = realpath($this->currentConfig['queuefoldername'] . "/queue");
-            $destinationExecutedDir = realpath($this->currentConfig['queuefoldername'] . "/queue/executed");
+            $destinationDir = realpath($this->currentConfig['queuefoldername'] . DS . "queue");
+            $destinationExecutedDir = realpath($this->currentConfig['queuefoldername'] . DS . "queue" . DS . "executed");
 
-            array_map('unlink', glob($originDir . "/*.sql*"));
-            array_map('unlink', glob($destinationDir . "/*.sql*"));
-            array_map('unlink', glob($destinationExecutedDir . "/*.sql*"));
+            array_map('unlink', glob($originDir . DS . "*.sql*"));
+            array_map('unlink', glob($destinationDir . DS . "*.sql*"));
+            array_map('unlink', glob($destinationExecutedDir . DS . "*.sql*"));
 
             foreach ($this->currentDatabases as $this->currentDatabase) {
                 $db = new DbPdoMySql($this->currentDatabase);
