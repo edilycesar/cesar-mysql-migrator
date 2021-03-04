@@ -205,6 +205,7 @@ class SqlProcessor
         $dbErrorMsg = "";
 
         foreach ($rows as $key => $row) {
+
             if ($key === 0) {
                 continue;
             }
@@ -213,7 +214,11 @@ class SqlProcessor
 
             $pRow = $rows[$pKey];
 
-            $statusOk = (isset($pRow["sql_previous_date"]) && $pRow["sql_previous_date"] === $row["sql_date"]);
+            if (!isset($pRow["sql_previous_date"])) {
+                $pRow["sql_previous_date"] = "1970-01-01 00:00:00";
+            }
+
+            $statusOk = ($pRow["sql_previous_date"] === $row["sql_date"]);
             $statusTx = $statusOk ? "OK" : "ERRO";
 
             if ($statusOk === false) {
@@ -361,12 +366,8 @@ class SqlProcessor
         $filename = date("Y.m.d.H.i.s") . ".sql";
         $datetimeRow = "-- " . date("Y-m-d H:i:s") . EOL;
 
-
-
         foreach ($this->configs as $this->currentConfig) {
             $originDir = realpath($this->currentConfig['mainfolder']);
-
-            //echo $this->currentConfig['mainfolder'] . "|" . $originDir . EOL . EOL;
 
             if (!is_writable($originDir)) {
                 throw new \Exception("Not exists or not writeable: (" . $originDir . ")");
